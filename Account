@@ -1,0 +1,24 @@
+//inputs: none
+//output: none
+//header class used to create function name for Search.cpp
+#include <string>
+using namespace std;
+
+class Account
+{
+public:
+	Account();// creates empty class
+	Account(int n, string M, double b); // creates class with parameters within
+	void setAccountNumber(int n); // sets account number
+	int getAccountNumber(); // gets account number
+	void setName(string M); // sets name
+	string getName();// gets name
+	void setBalance(double b); // sets balance 
+	double getBalance(); // gets balance
+
+private:
+	int number; // account number
+	string name; // name of account holder
+	double balance; // account balance
+
+};
