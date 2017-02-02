@@ -1,0 +1,120 @@
+//inputs: Bank[], answer, name, number
+//output: Bank[found].getAccountNumber, Bank[found].getName, Bank[found].getBalance,  
+//program uses header and another class to get information from an array
+
+
+#include "stdafx.h"
+#include <iostream>// use cout/cin
+#include<iomanip>//allow precision
+#include "Search.h"
+using namespace std;
+
+// define an array of accounts
+Account Bank[] = {
+	Account(7221379, "Abula", 970.12),
+	Account(6853921, "Allen", 268.01),
+	Account(4215534, "Austin", 3821.94),
+	Account(5551298, "Bailey", 3193.87),
+	Account(6224649, "Balovich", 444.21),
+	Account(6502286, "Bates", 4253.79),
+	Account(8448936, "Bettencourt", 2916.99),
+	Account(2883903, "Blackburn", 906.13),
+	Account(6752376, "Boucher", 1291.99),
+	Account(3564698, "Brown", 2001.18),
+	Account(6373150, "Duncan", 2963.20),
+	Account(6375372, "Estrada", 1152.60),
+	Account(8736368, "Fernandez", 1113.05),
+	Account(7218536, "Gallagher", 3703.46),
+	Account(6681985, "Gonzales", 2667.88),
+	Account(3909086, "Ha", 3042.25),
+	Account(5221192, "Hernandez", 72.04),
+	Account(5901163, "Howard", 2229.66),
+	Account(2427821, "Johnston", 3130.92),
+	Account(6331655, "Nguyen", 3004.99)
+};
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	//creates variables and sets them equal to starting value
+	string answer = "";
+	int found = 0;
+	string name = "";
+	int number = 0;
+	// ask if want to look up account by number or name
+	cout << "How do you want to look up account information (number or name): ";
+	cin >> answer;
+
+	int NumberOfAccounts = sizeof(Bank) / sizeof(Account);	// gets number of elements in array
+
+	// if answer = name
+	if (answer == "name")
+	{
+		// asks for user name
+		cout << "Enter account holder's name: ";
+		cin >> name;
+		name[0] = toupper(name[0]);//uppercases first letter
+		for (int i = 1; i < name.length(); i++)//lowercase rest of letters after 1st letter
+		{
+			name[i] = tolower(name[i]);
+		}
+
+		// searches array for the name and sets index to another variable
+		for (int i = 0; i < NumberOfAccounts; i++)
+		{
+			if (name == Bank[i].getName())
+			{
+				found = i;
+				break;
+
+			}
+			else if (name != Bank[i].getName() && i == 19)// error message if name doesn’t exist and reaches end of array
+			{
+				cout << "No account holder name matches." << endl;
+				return 0;
+
+			}
+
+		}
+	}
+	else if (answer == "number")// if answer = "number"
+	{
+		//asks for account number
+		cout << "Enter account number: ";
+		cin >> number;
+
+		// searches for matching account number
+		for (int i = 0; i < NumberOfAccounts; i++)
+		{
+			if (number == Bank[i].getAccountNumber())
+			{
+				found = i;
+				break;
+			}
+			else if (number != Bank[i].getAccountNumber() && i == 19)// outputs message if at end of array and account number not found
+			{
+				cout << "No account number matches." << endl;
+				return 0;
+
+			}
+
+		}
+	}
+	else// if answer != "name" or answer!="number", outputs error message
+	{
+		cout << "Invalid Input. Close program and try again." << endl;
+		return 0;
+	}
+	// outputs information wanted if name or account number exist
+	cout << "Account Number: " << Bank[found].getAccountNumber() << endl;
+	cout << "Name: " << Bank[found].getName() << endl;
+	cout << setiosflags(ios::fixed);// allows rounding
+	cout << setiosflags(ios::showpoint);
+	cout << "Balance: $" << setprecision(2)<<Bank[found].getBalance() << endl;
+
+
+	return 0;
+}
+
+
+
